@@ -9,17 +9,17 @@
     * {
       box-sizing: border-box;
     }
-
     body {
       background: #f7f7f7;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
+      padding: 1rem;
     }
-
     .container {
       background: #ffffff;
       padding: 2rem;
@@ -27,14 +27,12 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       text-align: center;
       max-width: 500px;
-      width: 90%;
+      width: 100%;
     }
-
     h1 {
       margin-bottom: 1rem;
       font-size: 24px;
     }
-
     .sentence {
       margin: 1rem 0;
       font-size: 18px;
@@ -43,7 +41,6 @@
       border: 1px solid #e0e0e0;
       border-radius: 4px;
     }
-
     button {
       padding: 10px 20px;
       font-size: 16px;
@@ -53,53 +50,79 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
-
     #generateBtn {
       background-color: #4caf50;
       color: white;
     }
-
     #generateBtn:hover {
       background-color: #45a049;
     }
-
     #tweetBtn {
       background-color: #1da1f2;
       color: white;
     }
-
     #tweetBtn:hover {
       background-color: #0d95e8;
     }
-
     button:disabled {
       background-color: #ccc;
       cursor: not-allowed;
+    }
+    .context {
+      max-width: 500px;
+      width: 100%;
+      margin: 1rem auto;
+      font-size: 14px;
+      color: #555;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .context a {
+      color: #1da1f2;
+      text-decoration: none;
+    }
+    .context a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Woke Words Sentence Generator</h1>
-    <h3> Generate a sentence using the administrations banned and trigger words</h3>
     <div id="sentenceDisplay" class="sentence">Your sentence will appear here.</div>
     <button id="generateBtn">Generate Sentence</button>
     <button id="tweetBtn" disabled>Tweet Sentence</button>
   </div>
-
+  <section class="context">
+    <p>As President Trump seeks to purge the federal government of “woke” initiatives, agencies have flagged hundreds of words to limit or avoid, according to a compilation of government documents.</p>
+    <p>This app creates randomly generated sentences using all the words the Administration hates.</p>
+    <p>This story was originally covered by the <a href="https://www.nytimes.com/interactive/2025/03/07/us/trump-federal-agencies-websites-words-dei.html" target="_blank" rel="noopener noreferrer">New York Times</a>.</p>
+  </section>
   <script>
     // List of keywords provided
     const keywords = [
-      "activism", "activists", "advocacy", "advocate", "barrier", "barriers", "biased", "bias", "BIPOC",
-      "Black and Latinx", "community diversity", "community equity", "cultural differences", "cultural heritage",
-      "culturally responsive", "disabilities", "discrimination", "discriminatory", "backgrounds", "groups",
-      "diversified", "diversify", "enhancing", "equal opportunity", "equality", "equitable", "ethnicity", "excluded",
-      "female", "fostering", "gender", "hate speech", "Hispanic minority", "historically", "implicit bias", "inclusion",
-      "inclusive", "increase", "indigenous community", "inequalities", "inequities", "institutional", "LGBTQ",
-      "marginalize", "minorities", "multicultural", "polarization", "political", "prejudice", "privileges",
-      "promoting", "race", "racial", "justice", "sense of belonging", "sexual preferences", "social justice",
-      "sociocultural", "socioeconomic", "status", "stereotypes", "systemic", "trauma", "underappreciated",
-      "underrepresented", "underserved", "victim", "women"
+      "accessible", "activism", "activists", "advocacy", "advocate", "advocates", "affirming care", "all-inclusive", "allyship",
+      "anti-racism", "antiracist", "assigned at birth", "assigned female at birth", "assigned male at birth", "at risk", "barrier", "barriers", "belong",
+      "bias", "biased", "biased toward", "biases", "biases towards", "biologically female", "biologically male", "BIPOC", "Black",
+      "breastfeed + people", "breastfeed + person", "chestfeed + people", "chestfeed + person", "clean energy", "climate crisis", "climate science", "commercial sex worker",
+      "community diversity", "community equity", "confirmation bias", "cultural competence", "cultural differences", "cultural heritage", "cultural sensitivity", "culturally appropriate", "culturally responsive",
+      "DEI", "DEIA", "DEIAB", "DEIJ", "disabilities", "disability", "discriminated", "discrimination", "discriminatory",
+      "disparity", "diverse", "diverse backgrounds", "diverse communities", "diverse community", "diverse group", "diverse groups", "diversified", "diversify", "diversifying",
+      "diversity", "enhance the diversity", "enhancing diversity", "environmental quality", "equal opportunity", "equality", "equitable", "equitableness", "equity",
+      "ethnicity", "excluded", "exclusion", "expression", "female", "females", "feminism", "fostering inclusivity", "GBV",
+      "gender", "gender based", "gender based violence", "gender diversity", "gender identity", "gender ideology", "gender-affirming care", "genders", "Gulf of Mexico",
+      "hate speech", "health disparity", "health equity", "hispanic minority", "historically", "identity", "immigrants", "implicit bias", "implicit biases",
+      "inclusion", "inclusive", "inclusive leadership", "inclusiveness", "inclusivity", "increase diversity", "increase the diversity", "indigenous community",
+      "inequalities", "inequality", "inequitable", "inequities", "inequity", "injustice", "institutional", "intersectional", "intersectionality",
+      "key groups", "key people", "key populations", "Latinx", "LGBT", "LGBTQ", "marginalize", "marginalized", "men who have sex with men",
+      "mental health", "minorities", "minority", "most risk", "MSM", "multicultural", "Mx", "Native American", "non-binary", "nonbinary",
+      "oppression", "oppressive", "orientation", "people + uterus", "people-centered care", "person-centered", "person-centered care", "polarization", "political",
+      "pollution", "pregnant people", "pregnant person", "pregnant persons", "prejudice", "privilege", "privileges", "promote diversity", "promoting diversity",
+      "pronoun", "pronouns", "prostitute", "race", "race and ethnicity", "racial", "racial diversity", "racial identity", "racial inequality", "racial justice", "racially",
+      "racism", "segregation", "sense of belonging", "sex", "sexual preferences", "sexuality", "social justice", "sociocultural", "socioeconomic", "status",
+      "stereotype", "stereotypes", "systemic", "systemically", "they/them", "trans", "transgender", "transsexual", "trauma", "traumatic", "tribal",
+      "unconscious bias", "underappreciated", "underprivileged", "underrepresentation", "underrepresented", "underserved", "undervalued", "victim", "victims",
+      "vulnerable populations", "women", "women and underrepresented"
     ];
 
     // Sentence templates with three placeholders {0}, {1}, {2}
