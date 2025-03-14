@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Sentence Generator</title>
+  <style>
+    /* Basic reset */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f7f7f7;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      font-size: 24px;
+    }
+
+    .sentence {
+      margin: 1rem 0;
+      font-size: 18px;
+      min-height: 60px;
+      padding: 0.5rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 0.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    #generateBtn {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    #generateBtn:hover {
+      background-color: #45a049;
+    }
+
+    #tweetBtn {
+      background-color: #1da1f2;
+      color: white;
+    }
+
+    #tweetBtn:hover {
+      background-color: #0d95e8;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Woke Words Sentence Generator</h1>
+    <h3> Generate a sentence using the administrations banned and trigger words</h3>
+    <div id="sentenceDisplay" class="sentence">Your sentence will appear here.</div>
+    <button id="generateBtn">Generate Sentence</button>
+    <button id="tweetBtn" disabled>Tweet Sentence</button>
+  </div>
+
+  <script>
+    // List of keywords provided
+    const keywords = [
+      "activism", "activists", "advocacy", "advocate", "barrier", "barriers", "biased", "bias", "BIPOC",
+      "Black and Latinx", "community diversity", "community equity", "cultural differences", "cultural heritage",
+      "culturally responsive", "disabilities", "discrimination", "discriminatory", "backgrounds", "groups",
+      "diversified", "diversify", "enhancing", "equal opportunity", "equality", "equitable", "ethnicity", "excluded",
+      "female", "fostering", "gender", "hate speech", "Hispanic minority", "historically", "implicit bias", "inclusion",
+      "inclusive", "increase", "indigenous community", "inequalities", "inequities", "institutional", "LGBTQ",
+      "marginalize", "minorities", "multicultural", "polarization", "political", "prejudice", "privileges",
+      "promoting", "race", "racial", "justice", "sense of belonging", "sexual preferences", "social justice",
+      "sociocultural", "socioeconomic", "status", "stereotypes", "systemic", "trauma", "underappreciated",
+      "underrepresented", "underserved", "victim", "women"
+    ];
+
+    // Sentence templates with three placeholders {0}, {1}, {2}
+    const templates = [
+      "Today, {0} meets {1} in a celebration of {2}.",
+      "The journey of {0} and {1} paves the way for {2}.",
+      "Embracing {0} brings {1} and {2} together for a brighter future.",
+      "A fusion of {0} and {1} ignites the spirit of {2}.",
+      "Let {0} and {1} inspire us to overcome {2}.",
+      "Innovation thrives when {0} meets {1}, empowering {2}."
+    ];
+
+    // Function to generate a sentence using a random template and three distinct keywords
+    function generateSentence() {
+      const template = templates[Math.floor(Math.random() * templates.length)];
+      const selected = [];
+      while (selected.length < 3) {
+        const candidate = keywords[Math.floor(Math.random() * keywords.length)];
+        if (!selected.includes(candidate)) {
+          selected.push(candidate);
+        }
+      }
+      let sentence = template;
+      selected.forEach((word, index) => {
+        sentence = sentence.replace(`{${index}}`, word);
+      });
+      return sentence;
+    }
+
+    // DOM elements
+    const sentenceDisplay = document.getElementById('sentenceDisplay');
+    const generateBtn = document.getElementById('generateBtn');
+    const tweetBtn = document.getElementById('tweetBtn');
+    let currentSentence = '';
+
+    // Event listener to generate a new sentence
+    generateBtn.addEventListener('click', () => {
+      currentSentence = generateSentence();
+      sentenceDisplay.textContent = currentSentence;
+      tweetBtn.disabled = false;
+    });
+
+    // Event listener to tweet the current sentence
+    tweetBtn.addEventListener('click', () => {
+      const tweetUrl = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(currentSentence);
+      window.open(tweetUrl, '_blank');
+    });
+  </script>
+</body>
+</html>
