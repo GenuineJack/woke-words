@@ -7,7 +7,6 @@ A simple, modern web app that randomly generates innocuous sentences using a set
 - **Random Sentence Generation:** Uses predefined templates to insert three randomly selected keywords into a sentence.
 - **Social Sharing:** Direct integration with Twitter via a "Tweet Sentence" button.
 - **Modern Design:** A clean, responsive interface built with HTML, CSS, and JavaScript.
-- **Easy Deployment:** Simply host on GitHub and deploy via Vercel—no server-side components needed.
 
 ## Keywords
 
@@ -22,13 +21,9 @@ activism, activists, advocacy, advocate, barrier, barriers, biased, bias, BIPOC,
 1. **Generate Sentence:** Click the "Generate Sentence" button to create a sentence using one of several random templates and three unique keywords.
 2. **Share on Twitter:** When you find a sentence you like, click the "Tweet Sentence" button to open Twitter's posting interface with your sentence pre-filled.
 
-## Deployment
+## Code
 
-This project is entirely static and uses only HTML, CSS, and JavaScript. To deploy:
-
-1. Push the code to a GitHub repository.
-2. Connect the repository to Vercel for automatic deployment.
-3. Enjoy your live web app!
+This project is entirely static and uses only HTML, CSS, and JavaScript. 
 
 ## License
 
